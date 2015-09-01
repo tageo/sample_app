@@ -26,7 +26,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
-
+gem 'faker', '1.1.2'
+gem 'will_paginate', '3.0.4'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
@@ -38,6 +39,7 @@ group :development, :test do
   gem 'byebug'
   gem 'rspec-rails', '2.13.1'
   gem 'minitest'
+  gem 'pry-rails'
 end
 
 group :development do
