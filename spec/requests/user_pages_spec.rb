@@ -54,11 +54,20 @@ let(:base_title) { "Ruby on Rails Tutorial Sample App" }
 
 	describe "profile page" do
 	  let(:user) { FactoryGirl.create(:user) }
+	  let!(:m1) { FactoryGirl.create(:micropost, user: user, content: "Foo") }
+	  let!(:m2) { FactoryGirl.create(:micropost, user: user, content: "Bar") }
 	  # ユーザー変数を作成するためのコードに置き換える。
 	  before { visit user_path(user) }
 
 	  it { should have_content(user.name) }
 	  it { should have_title(user.name) }
+
+	  describe "microposts" do
+		it { should have_content(m1.content) }
+		it { should have_content(m2.content) }
+		it { should have_content(user.microposts.count) }
+	  end
+
 	end
 
 
@@ -92,7 +101,7 @@ let(:base_title) { "Ruby on Rails Tutorial Sample App" }
 		  end
 
 		  it "should create a user" do
-		    #expect { click_button submit }.to change(User, :count).by(1)
+		    expect { click_button submit }.to change(User, :count).by(1)
 		  end
 
 
@@ -100,9 +109,9 @@ let(:base_title) { "Ruby on Rails Tutorial Sample App" }
 	        before { click_button submit }
 	        let(:user) { User.find_by(email: 'user@example.com') }
 
-	        #it { should have_link('Sign out') }
-	        #it { should have_title(user.name) }
-	        #it { should have_selector('div.alert.alert-success', text: 'Welcome') }
+	        it { should have_link('Sign out') }
+	        it { should have_title(user.name) }
+	        it { should have_selector('div.alert.alert-success', text: 'Welcome') }
 	      end
 
 
@@ -119,15 +128,14 @@ let(:base_title) { "Ruby on Rails Tutorial Sample App" }
 	    end
 
 		describe "page" do
-			#it { should have_content("Update your profile") }
-			#it { should have_title("Edit user") }
-			#it { should have_link('change', href: 'http://gravatar.com/emails') }
+			it { should have_content("Update your profile") }
+			it { should have_title("Edit user") }
+			it { should have_link('change', href: 'http://gravatar.com/emails') }
 		end
 
 		describe "with invalid information" do
 			before { click_button "Save changes" }
-
-			#it { should have_content('error') }
+			it { should have_content('error') }
 		end
 	end
 
